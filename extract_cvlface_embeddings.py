@@ -73,12 +73,12 @@ def main():
 
     # 读取 HF_TOKEN（RETINAFACE RESNET50 为私有仓库）
     HF_TOKEN = os.environ.get("HF_TOKEN", None)
-    if HF_TOKEN is None:
-        raise RuntimeError(
-            "未检测到环境变量 HF_TOKEN。RETINAFACE RESNET50 为私有模型，需设置你的 Hugging Face 访问令牌：\n"
-            "  Linux/macOS: export HF_TOKEN=xxxxxxxx\n"
-            "  Windows(PowerShell): $env:HF_TOKEN='xxxxxxxx'"
-        )
+    # if HF_TOKEN is None:
+    #     raise RuntimeError(
+    #         "未检测到环境变量 HF_TOKEN。RETINAFACE RESNET50 为私有模型，需设置你的 Hugging Face 访问令牌：\n"
+    #         "  Linux/macOS: export HF_TOKEN=xxxxxxxx\n"
+    #         "  Windows(PowerShell): $env:HF_TOKEN='xxxxxxxx'"
+    #     )
 
     # 加载 CVLFace 模型（官方示例写法）
     # 人脸检测/对齐：RETINAFACE RESNET50（CVLFace 提供）
