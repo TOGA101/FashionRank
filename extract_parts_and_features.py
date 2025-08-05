@@ -36,7 +36,7 @@ from transformers import AutoModel, AutoProcessor  # Marqo-FashionSigLIP
 from transformers import SegformerImageProcessor, AutoModelForSemanticSegmentation  # SegFormer
 
 # ------------------------- 路径与设备 ------------------------------------------
-ROOT = Path(".").resolve()  # 主目录（含 images/, segm/, keypoints/ 等）
+ROOT = Path(r"C:\Users\Administrator\Documents\Datasets\DeepFashion-MultiModal").resolve()  # 主目录（含 images/, segm/, keypoints/ 等）
 IMAGES_DIR = ROOT / "images"
 SEGM_DIR = ROOT / "segm"      # 你当前数据的解析标签目录（按你提供的命名）
 FEAT_DIR = ROOT / "feat"
