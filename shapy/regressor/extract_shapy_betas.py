@@ -14,8 +14,8 @@
 #   (2) Appear in BOTH `keypoints/keypoints_loc.txt` and `keypoints/keypoints_vis.txt`.
 #
 # Notes
-# - This script imports the SHAPY regressor utilities from the working directory path
-#   './shapy/regressor/inference.py' (relative to where this script lives). Ensure that file exists.
+# - This script imports the SHAPY regressor utilities from the sibling file `inference.py`.
+#   Ensure that file exists alongside this script.
 # - The SHAPY checkpoints/config referenced by that `inference.py` must be present; otherwise,
 #   model loading will fail.
 #
@@ -26,13 +26,12 @@
 #   DEFAULT_EXP_CFG / DEFAULT_MODEL_FOLDER imports accordingly.
 #
 # Usage:
-#   python extract_shapy_betas.py /path/to/DeepFashion-MultiModal
+#   python shapy/regressor/extract_shapy_betas.py /path/to/DeepFashion-MultiModal
 # Output:
 #   <dataset_root>/shape/<image_name>_shape.pt
 from __future__ import annotations
 
 import argparse
-import sys
 from pathlib import Path
 from typing import Set
 
@@ -40,17 +39,10 @@ import torch
 from tqdm import tqdm
 
 # -------------------------------------------------------------------------
-# Import SHAPY regressor utilities from the provided file:
-#     ./shapy/regressor/inference.py
+# Import SHAPY regressor utilities from the sibling file `inference.py`.
 # We rely ONLY on its public functions / constants used below.
 # -------------------------------------------------------------------------
-THIS_DIR = Path(__file__).resolve().parent
-REGRESSOR_DIR = THIS_DIR / "shapy" / "regressor"
-if REGRESSOR_DIR.exists():
-    sys.path.append(str(REGRESSOR_DIR))
-
 try:
-    # Expected to exist as per the provided reference file.
     from inference import (  # type: ignore
         load_model,
         preprocess_image,
@@ -58,12 +50,11 @@ try:
         DEFAULT_EXP_CFG,
         DEFAULT_MODEL_FOLDER,
         default_conf,
-        OmegaConf,  # re-exported in the reference file
+        OmegaConf,
     )
 except Exception as e:
     raise ImportError(
-        "Could not import from ./shapy/regressor/inference.py. "
-        "Please ensure the file exists at that path relative to this script."
+        "Could not import required utilities from inference.py located next to this script."
     ) from e
 
 # -------------------------------------------------------------------------
