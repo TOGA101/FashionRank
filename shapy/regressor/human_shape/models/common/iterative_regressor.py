@@ -244,7 +244,7 @@ class HMRLikeRegressor(nn.Module):
         for name in self.param_names:
             indices = getattr(self, f'{name}_idxs')
             param_dict[name] = torch.index_select(param_tensor, 1, indices)
-            logger.debug(f'{name}: {param_dict[name].shape}')
+            # logger.debug(f'{name}: {param_dict[name].shape}')
         return param_dict
 
     def _build_losses(self, loss_cfg):
