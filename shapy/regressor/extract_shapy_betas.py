@@ -32,11 +32,16 @@
 from __future__ import annotations
 
 import argparse
+import logging
+import warnings
 from pathlib import Path
 from typing import Set
 
 import torch
 from tqdm import tqdm
+
+logging.disable(logging.CRITICAL)
+warnings.filterwarnings("ignore")
 
 # -------------------------------------------------------------------------
 # Import SHAPY regressor utilities from the sibling file `inference.py`.
