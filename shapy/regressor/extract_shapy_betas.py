@@ -14,8 +14,8 @@
 #   (2) Appear in BOTH `keypoints/keypoints_loc.txt` and `keypoints/keypoints_vis.txt`.
 #
 # Notes
-# - This script imports the SHAPY regressor utilities from the working directory path
-#   './shapy/regressor/inference.py' (relative to where this script lives). Ensure that file exists.
+# - This script imports the SHAPY regressor utilities from the sibling file `inference.py`.
+#   Ensure that file exists in the same directory.
 # - The SHAPY checkpoints/config referenced by that `inference.py` must be present; otherwise,
 #   model loading will fail.
 #
@@ -32,7 +32,6 @@
 from __future__ import annotations
 
 import argparse
-import sys
 from pathlib import Path
 from typing import Set
 
@@ -40,30 +39,23 @@ import torch
 from tqdm import tqdm
 
 # -------------------------------------------------------------------------
-# Import SHAPY regressor utilities from the provided file:
-#     ./shapy/regressor/inference.py
-# We rely ONLY on its public functions / constants used below.
+# Import SHAPY regressor utilities from the sibling file `inference.py`.
+# We rely only on its public functions/constants used below.
 # -------------------------------------------------------------------------
-THIS_DIR = Path(__file__).resolve().parent
-REGRESSOR_DIR = THIS_DIR / "shapy" / "regressor"
-if REGRESSOR_DIR.exists():
-    sys.path.append(str(REGRESSOR_DIR))
-
 try:
-    # Expected to exist as per the provided reference file.
     from inference import (  # type: ignore
-        load_model,
-        preprocess_image,
-        infer_single_image,
         DEFAULT_EXP_CFG,
         DEFAULT_MODEL_FOLDER,
+        OmegaConf,
         default_conf,
-        OmegaConf,  # re-exported in the reference file
+        infer_single_image,
+        load_model,
+        preprocess_image,
     )
 except Exception as e:
     raise ImportError(
-        "Could not import from ./shapy/regressor/inference.py. "
-        "Please ensure the file exists at that path relative to this script."
+        "Could not import required functions from inference.py. "
+        "Please ensure it exists in the same directory as this script."
     ) from e
 
 # -------------------------------------------------------------------------
