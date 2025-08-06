@@ -146,6 +146,16 @@ def main() -> None:
     cfg.output_folder = str(DEFAULT_MODEL_FOLDER.resolve())
     cfg.is_training = False
 
+    # The body model folder in the default config is specified with a
+    # relative path that assumes the working directory is the SHAPY repo
+    # itself.  When running this script from the FashionRank root, that
+    # relative path points outside the repository and the SMPL-X model
+    # cannot be found.  Resolve it explicitly relative to this script so
+    # the model is loaded correctly regardless of the current directory.
+    cfg.body_model.model_folder = str(
+        (THIS_DIR / "shapy" / "data" / "body_models").resolve()
+    )
+
     model = load_model(cfg, device)
 
     crop_size = cfg.datasets.pose.transforms.crop_size
